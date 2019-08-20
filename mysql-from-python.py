@@ -1,4 +1,5 @@
 import os
+import datetime
 import pymysql
 
 #Get useranme from Cloud9 workspace
@@ -14,10 +15,14 @@ connection = pymysql.connect(host='localhost',
 try:
     #Run a query
     with connection.cursor() as cursor:
-        sql = "SELECT * FROM Artist;"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        print(result)
+        list_of_names = ['fred', 'Fred']
+        # Prepare a string with the same number of placeholders as is in
+        # list_of_names
+        format_strings = ','.join(['%s']*len(list_of_names))
+        cursor.execute("DELETE FROM Friends WHERE name in ({});".format(format_strings), list_of_names)
+        connection.commit()
+        # Note that the above will still display a warning (not error) if the
+        # table already exists
 finally:
     #Close the connection, regardless of whether the above was successful
     connection.close()
