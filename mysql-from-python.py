@@ -3,7 +3,7 @@ import datetime
 import pymysql
 
 #Get useranme from Cloud9 workspace
-# (Modiulfy this variable if running on another environment)
+# (Modify this variable if running on another environment)
 username = os.getenv('C9_USER')
 
 #Connect to the database
